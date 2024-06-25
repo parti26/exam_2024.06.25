@@ -19,9 +19,41 @@ const cats = [
   },
 ];
 
+function Header() {
+  return (
+    <header>
+      <h1>Cat Adoption</h1>
+    </header>
+  );
+}
+
+function ShowCat() {
+  const catData = cats;
+  const numCats = catData.length;
+
+  return (
+    <div>
+      <h2>Available Cats</h2>
+      <ul>
+        {catData.map((cat) => (
+          <li key={cat.id}>
+            <img src={cat.image} alt={cat.name}/>
+            <h3>{cat.name}</h3>
+            <p>{cat.description}</p>
+          </li>
+        ))}
+      </ul>
+      <p>{numCats} cats available for adoption.</p>
+    </div>
+  );
+}
+
 function App() {
   return (
-    <h1>App</h1>
+    <div>
+      <Header />
+      <ShowCat />
+    </div>
   );
 }
 
