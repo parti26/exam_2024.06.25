@@ -15,17 +15,15 @@ indexSum: the sum of the indices of this element in both arrays.
 */
 export function twistedArrayIntersection(arr1, arr2) {
   const result = [];
-  const seen = new Set();
 
   for (let i = 0; i < arr1.length; i++) {
     for (let j = 0; j < arr2.length; j++) {
-      if (arr1[i] === arr2[j] && !seen.has(`${arr1[i]}:${i}:${j}`)) {
+      if (arr1[i] === arr2[j]) {
         result.push({
           value: arr1[i],
           indexSum: i + j,
         });
-
-        seen.add(`${arr1[i]}:${i}:${j}`);
+        break;
       }
     }
   }
