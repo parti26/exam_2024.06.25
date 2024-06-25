@@ -13,8 +13,25 @@ Each object should have:
 value: the common element.
 indexSum: the sum of the indices of this element in both arrays.
 */
-export function twistedArrayIntersection(arr1, arr2) {}
+export function twistedArrayIntersection(arr1, arr2) {
+  const result = [];
+  const seen = new Set();
 
+  for (let i = 0; i < arr1.length; i++) {
+    for (let j = 0; j < arr2.length; j++) {
+      if (arr1[i] === arr2[j] && !seen.has(`${arr1[i]}:${i}:${j}`)) {
+        result.push({
+          value: arr1[i],
+          indexSum: i + j,
+        });
+
+        seen.add(`${arr1[i]}:${i}:${j}`);
+      }
+    }
+  }
+
+  return result;
+}
 
 /*
 You need to create an advanced accounting system that can handle basic transactions
@@ -32,4 +49,26 @@ The initial balance is 0.
 If a withdrawal causes the balance to go below zero, the transaction should be ignored,
 and the function should continue processing the remaining transactions.
 */
-export function processTransactions(transactions) {}
+export function processTransactions(transactions) {
+  let balance = 0;
+
+  for (const transaction of transactions) {
+    if (
+      !transaction ||
+      typeof transaction.amount !== "number" ||
+      transaction.amount < 0
+    ) {
+      continue;
+    }
+
+    const { type, amount } = transaction;
+
+    if (type === "deposit") {
+      balance += amount;
+    } else if (type === "withdrawal" && balance >= amount) {
+      balance -= amount;
+    }
+  }
+
+  return balance;
+}
